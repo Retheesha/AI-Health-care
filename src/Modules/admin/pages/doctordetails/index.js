@@ -16,7 +16,7 @@ export const Admindoctordetails = () => {
     const { id } = useParams()
     useEffect(() => {
 
-        axios.get(`https://sivaharish.pythonanywhere.com/viewdoctor/${id}`).then((viewdoctor) => {
+        axios.get(`https://retheesha.pythonanywhere.com/viewdoctor/${id}`).then((viewdoctor) => {
             setview(viewdoctor.data.data)
             // setspecial(viewdoctor.data.data.specialist)
             // console.log(viewdoctor.data.data)

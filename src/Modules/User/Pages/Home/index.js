@@ -1,4 +1,4 @@
-import { Footer } from "../../component/Footer"
+    import { Footer } from "../../component/Footer"
 import { Header } from "../../component/Header"
 import { useSelector, useDispatch } from "react-redux"
 import { setPatient } from "../../slices/PatientSlice"

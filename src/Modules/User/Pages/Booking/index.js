@@ -14,7 +14,7 @@ export const UserBooking = () => {
     const DoctorSlotDetails = useSelector((state) => state.user_doctor_slot).dotor_slot_details
     const booked_slots = useSelector((state) => state.user_doctor_slot).booking_slots
     const paymentHistoryState = useSelector((state) => state.userhistory).paymentHistory
-    console.log(DoctorSlotDetails)
+    // console.log(DoctorSlotDetails)
     const dispatch = useDispatch()
 
 
@@ -25,7 +25,7 @@ export const UserBooking = () => {
     useEffect(() => {
         const today = moment()
 
-        const tomorrow = moment(today).add(1, "days");
+        const tomorrow = moment(today).add(0, "days");
 
         setmindate(tomorrow.format('YYYY-MM-DD'))
 
@@ -39,12 +39,15 @@ export const UserBooking = () => {
     const param2 = searchParams.get('enquiry_id')
     // getting doctor slot details
     useEffect(() => {
-        if(DoctorSlotDetails==""){
+        
             // axios.get(`http://agaram.academy/api/action.php?request=ai_health_get_slot_booking&doctor_id=${param1}`).then((res) => {
             axios.get(`https://retheesha.pythonanywhere.com/getuniquedoctorslot/${param1}`).then((res) => {
-            dispatch(setDoctorSlotDetails(JSON.parse(res.data.data.clinic_details)))
-        })
-        }
+                console.log(res.data.data)
+                if(res.data.data!=null)
+                    dispatch(setDoctorSlotDetails(JSON.parse(res.data.data.clinic_details)))
+                       })
+        
+       
 
     }, [])
     let doctor = DoctorSlotDetails.filter((e) => {
@@ -57,8 +60,9 @@ export const UserBooking = () => {
         return selectedDay == e.clinic_day
     })
 
-    console.log(newDoctorSlotDetails)
+    
     const paynow = () => {
+
         setnewDoctorSlotDetails(DoctorSlotDetails.filter((e) => { return e.clinic_day != selectedDay && e.clinic_timing != booked_slots.booking_time }))
 
         const formdata = new FormData();
@@ -115,11 +119,11 @@ export const UserBooking = () => {
                                             <button className="col-5 form-control btn-success my-4 mx-3" value={e.clinic_timing} onClick={(e) => {
                                                 dispatch(setBooking({ ...BookingState, booking_time: e.target.value }))
                                             }}>{e.clinic_timing}</button>)
-                                            : newSlots.map((e) =>
+                                            :DoctorSlotDetails.length>0?newSlots.map((e) =>
                                                 <button className="col-5 form-control btn-success my-4 mx-3" value={e.clinic_timing} onClick={(e) => {
                                                     dispatch(setBooking({ ...BookingState, booking_time: e.target.value }))
                                                 }}>{e.clinic_timing}</button>
-                                            )}</div>
+                                            ):""}</div>
 
                                         <button type="button" className="btn btn-success btn-round my-3" data-toggle="modal" data-target="#smallNoticeModal" onClick={() => { paynow(); setisClicked(false) }}>
                                             Pay Now

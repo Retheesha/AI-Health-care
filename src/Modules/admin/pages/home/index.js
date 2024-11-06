@@ -24,7 +24,7 @@ export const Adminhomepage = () => {
 
     const getdetails = () => {
 
-        axios.get("https://sivaharish.pythonanywhere.com/getdoctorsdata").then((e) => {
+        axios.get("https://retheesha.pythonanywhere.com/getdoctordata").then((e) => {
 
             setdoctor(e.data)
             setsearch(e.data)
@@ -73,7 +73,7 @@ export const Adminhomepage = () => {
 
 
 
-        axios.post("https://sivaharish.pythonanywhere.com/approvedoctor", formData).then((d) => {
+        axios.post("https://retheesha.pythonanywhere.com/approvedoctor", formData).then((d) => {
 
             getdetails()
             console.log(d)
@@ -87,7 +87,7 @@ export const Adminhomepage = () => {
     const deletedoctor = (eachh) => {
 
 
-        axios.delete(`https://sivaharish.pythonanywhere.com/delete/${eachh}`).then((d) => {
+        axios.delete(`https://retheesha.pythonanywhere.com/delete/${eachh}`).then((d) => {
 
             getdetails()
 

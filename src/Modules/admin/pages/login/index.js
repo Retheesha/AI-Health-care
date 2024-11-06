@@ -30,7 +30,7 @@ export const Adminlogin = () => {
             alert("Please Fill the Required Details")
         }
         else {
-            axios.post("https://sivaharish.pythonanywhere.com/adminlogin",formData).then((log)=>{
+            axios.post("https://retheesha.pythonanywhere.com/adminlogin",formData).then((log)=>{
                 // let status = log.data.status
 
 

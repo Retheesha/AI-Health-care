@@ -39,17 +39,17 @@ export const Doctor_Register = () => {
         formData.append("phone", doctorRegisterSubmit.phone)
         formData.append("city", doctorRegisterSubmit.city)
 
-// <<<<<<< doctor-module-2
-//             axios.post("https://srimathan.pythonanywhere.com/doctorregister", formData).then((res) => {
-//                 console.log(res)
-// =======
 
-        // useEffect(() => {
+
             axios.post("https://retheesha.pythonanywhere.com/doctorregister", formData).then((res) => {
-// >>>>>>> submaster
-                let status = res.data.status
-                status == "success" ? navigate("/doctor/login") : alert("please wait untill the verification")
-            })
+                if(res.data.status=="success"){
+                    alert("Registration Success")
+                    navigate("/doctor/login")
+                  }
+                  else if(res.data.message=="User already exists"){
+                    alert("This email is already registered. Please use a different email address.")
+                  }
+                })
 
 
         // }, [])

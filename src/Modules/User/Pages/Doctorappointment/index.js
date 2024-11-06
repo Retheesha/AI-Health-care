@@ -84,7 +84,7 @@ export const Doctorapp = () => {
                                             </div>
                                         </div>
                                         <div className="col-md-2">
-                                            <button type="button" className="btn btn-success btn-block" onClick={() => Filter(searchinput)}><i className="nc-icon nc-zoom-split"></i> &nbsp; Search</button>
+                                            <button type="button" className="btn btn-success btn-block" onClick={() => Filter(searchinput`                                                                                                              `)}><i className="nc-icon nc-zoom-split"></i> &nbsp; Search</button>
                                         </div>
                                     </div>
                                 </form>
