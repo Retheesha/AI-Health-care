@@ -1,0 +1,21 @@
+.body-bg{
+    background-color: #effdfa;
+}
+.slot_bg{
+    background-color: #f9fcfb;
+    border-radius: 10px;
+}
+.slot-text{
+    color: black;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+.slot-text i{
+    margin-right: 20px;
+}
+.card-pricing {
+    text-align: left;
+}
+.card-pricing .card-icon{
+    padding: 0 0 5px 0;
+}

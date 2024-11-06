@@ -4,3 +4,16 @@
 .footer-nav{
     line-height : 50px !important;
 }
+.doctor-head{
+    background: #fff;
+}
+.head-logo img{
+    width: 60%;
+}
+.doctor-head .nav-hov:hover{
+    background-color: #72e8d2;
+    border-radius: 30px;
+}
+.dropdown-menu .dropdown-item:hover {
+    background-color: #72e8d2 !important;
+}

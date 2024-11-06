@@ -9,44 +9,46 @@ import { useState } from 'react'
 export const Adminlogin = () => {
 
 
+    // const [isSubmitted, setIsSubmitted] = useState(false);
 
     let loginvalue = useSelector((state) => state.login).adminlogin
 
-    // const loginusers = loginvalue.adminlogin
-    // console.log(loginusers)
-
     const dispatch = useDispatch()
-
 
     const navigate = useNavigate();
 
 
     const Loginfunction = () => {
-
-
+        
         let formData = new FormData();
 
-        // formData.append("request", loginusers.request)
-        formData.append("email", loginvalue.email)
-        formData.append("password", loginvalue.password)
-
-        axios.post("http://agaram.academy/api/action.php?request=ai_health_admin_login", formData).then((log) => {
-            let status=log.data.status
-
-            if (status == "success") {
-                alert("Successfully login")
-                dispatch(login(log.data.data))
-                navigate("/admin/homepage")
-            
-            }
-            
-            else {
-                alert("login failed")
-            }
+        formData.append("email",loginvalue.email)
+        formData.append("password",loginvalue.password)
 
 
-        })
+        if ((loginvalue.email=="")||(loginvalue.password=="")){
+            alert("Please Fill the Required Details")
+        }
+        else {
+            axios.post("https://retheesha.pythonanywhere.com/adminlogin",formData).then((log)=>{
+                // let status = log.data.status
 
+
+                if (log.data.status=="success"){
+                    alert("Login successfully")
+                    dispatch(login(log.data.data))
+                    navigate("/admin/homepage")
+
+
+                }
+
+                else {
+                    alert("login failed")
+                }
+
+
+            })
+        }
     }
 
 
@@ -61,16 +63,18 @@ export const Adminlogin = () => {
                 <nav className="navbar navbar-expand-lg bg-white fixed-top nav-down navbar-transparent" color-on-scroll="500">
                     <div className="container">
                         <div className="navbar-translate">
-                            <a className="navbar-brand" title="AI-Health-Care" data-placement="bottom" target="_blank">
+                            <img className="logo" style={{ width: "70%" }} src="../../assets/img/sections/admin/AIH_Logo_CP.png" />
+
+                            {/* <a className="navbar-brand" title="AI-Health-Care" data-placement="bottom" target="_blank">
                                 <i className="fa fa-heartbeat"></i> AI-Health-Care
-                            </a>
+                            </a> */}
                             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                                 <span className="navbar-toggler-bar bar1"></span>
                                 <span className="navbar-toggler-bar bar2"></span>
                                 <span className="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                       
+
                     </div>
                 </nav>
 
@@ -110,7 +114,7 @@ export const Adminlogin = () => {
                                             <button className="btn btn-info btn-block btn-round" type="button" onClick={Loginfunction}>Login</button>
                                         </form>
                                         <div className="forgot">
-                                            <a href="#paper-kit" className="btn btn-link">Forgot password?</a>
+                                            <a href="" className="btn btn-link">Forgot password?</a>
                                         </div>
                                     </div>
                                 </div>

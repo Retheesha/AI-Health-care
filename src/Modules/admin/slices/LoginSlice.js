@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const loginState = {
     adminlogin:{
-       request:"ai_health_admin_login",
+    //    request:"ai_health_admin_login",
        email: "",
        password: ""
 

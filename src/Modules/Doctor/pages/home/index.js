@@ -1,126 +1,181 @@
 import { useNavigate } from "react-router-dom"
 import { Footer } from "../../Component/Footer"
 import { Header } from "../../Component/Header"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import axios from "axios"
-import { useState } from "react"
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import moment from "moment"
-import { deleteSlot } from "../../slices/removeSlotSlice"
-
+import { get_patient_data,setEnquiry } from "../../slices/patientBookingSlice"
+import './index.css'
 
 
 export const Doctor_Home = () => {
 
-    axios.get("http://agaram.academy/api/action.php?request=ai_health_get_all_booked_patients").then((get_all_patients)=>{
-        // console.log(get_all_patients)
-    })
-
-    const get_slot_state = useSelector((state) => state.doctor_slot_state).doctorSlotSlice
+    const set_dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const [uniqueDay_all_patients, get_patients_data] = useState([])
+    // get globe state
+    const get_patients_slots_state = useSelector((state) => state.patient_booking_state).patientBooking
+    // const enquiry_state=useSelector((state) => state.patient_booking_state).patientBooking.enquiry_details
+    console.log(get_patients_slots_state)
+    // get diseases from api parse diseases
+    const [diseases, setDiseases] = useState([]);
+    console.log(diseases)
+
+    
+
+    // get doctor id in login page
+    const doctorLoginSubmit = useSelector((state) => state.doctor_login_state).doctorLogin    
 
     useEffect(() => {
-        axios.get(`http://agaram.academy/api/action.php?request=getAllMembers`).then((day_all_patient_data) => {
-            get_patients_data(day_all_patient_data.data.data)
-        })
-    }, []
-    )
+            axios.get(`https://retheesha.pythonanywhere.com/getpatientbooking/${doctorLoginSubmit.data.id}`).then((response) => {    
+            const patientData = response.data.data;
+            set_dispatch(get_patient_data(patientData))
+            
+            // const diseasesData = JSON.parse(dieseasearr);
+           
+            
+        })  
+    }, [])
+     const today = moment().startOf('day'); // Start of today's date (00:00:00)
 
-    const date = moment().format('MMMM Do YYYY dddd');
-    useEffect(() => { }, [date]
-    )
+      const todaySlots = get_patients_slots_state?.filter(slot => {
+      const slotDate = moment(slot.booking_date); 
+      return slotDate.isSame(today, 'day');
+    });
+    console.log(todaySlots)
 
-    // console.log(date)
-
-    var now = new Date();
-    var daysOfYear = [];
-    for (var d = new Date(2012, 0, 1); d <= now; d.setDate(d.getDate() + 1)) {
-        daysOfYear.push(new Date(d));
-    }
-
-    // console.log(daysOfYear)
-
-
-
-    const secure = () => {
-        let isLogged = localStorage.getItem("isLogged");
-        // !isLogged? navigate("/doctor/login") : null
-        if (!isLogged) {
-            window.location = "/doctor/login"
-        }
-    }
 
 
     return (
         <>
             <Header />
             <div className="add-product sidebar-collapse">
-                <div className="main">
-                    <div className="section ">
+                <div className="main body-bg">
+                    <div className="section body-bg">
                         <div className="container">
-                        <div className="media-footer">
-                                <button href="#" className="btn btn-info pull-right" type="button">Show All</button>
-                            </div>
-                            <h4 className="title">
-                                {/* <small><input type="date" id="date"></input>
-                                </small> */}
-
-                            </h4>
                             
-                            <div className="row">
-                                {
-
-                                    get_slot_state.map((e, i) => {
-                                        return (
-                                            <div className="col-md-4 mx-auto">
-                                                <div className="card card-pricing" data-color="orange">
-                                                    <div className="card-body">
-                                                        <div className="card-icon">
-                                                            <span className="icon-simple"><i className="nc-icon nc-circle-10"></i></span>
-                                                        </div>
-                                                        <h3 className="card-title">{e.clinic_day}</h3>
-                                                        <p className="card-description">
-                                                            {e.clinic_timing}
-                                                        </p>
-                                                        <div className="card-footer mb-4">
-                                                            {get_slot_state.length > 0 ? <button className="btn btn-neutral btn-round" onClick={() => navigate(`/patient_list/${i}`)}> 
-                                                                {uniqueDay_all_patients.length} 
-                                                                Booked</button> : <button className="btn btn-warning btn-round">Booked Patient</button>}
-                                                        </div>
-                                                        <button type="button" className="btn btn-danger btn-just-icon" onClick={deleteSlot()}><i className="nc-icon nc-simple-remove" aria-hidden="true"></i></button>
-                                                    </div>
+                        <div className="row">
+                                {todaySlots==""? <h2 className="text-center align-middle m-0">No Patient Booked</h2>:
+                                todaySlots.map((e) =>
+                                    
+                                    <div className="col-6 mx-auto ">
+                                        
+                                            <div className="card card-blog border border-3 patient-card px-4">
+                                                <div className="card-image">
+                                                    <a href="#pablo">
+                                                        <img className="img img-raised" src="../assets/img/sections/doctor/W_P.jpg" />
+                                                    </a>
                                                 </div>
-                                            </div>
-                                        )
-                                    }
-                                    )
-                                }
 
-                                {/* <div className="col-md-3">
-                                    <div className="card card-pricing" data-color="orange">
-                                        <div className="card-body">
-                                            <div className="card-icon">
-                                                <span className="icon-simple"><i className="nc-icon nc-circle-10"></i></span>
+                                                
+                                                    
+
+                                                        <div className="card-body mb-3">
+                                                            <div>
+                                                                {/* <label className="w-50">Patient Name</label> */}
+                                                                <h3 className="card-title mb-3">
+                                                                    {e.enquiry_details.name}
+                                                                </h3>
+                                                            </div>
+                                                            <hr className="patient-head" />
+                                                            <div>
+                                                                <i className="fa fa-child fa-2x" aria-hidden="true"></i>
+                                                                <label className="w-50 patient-label">Patient age</label>
+                                                                <h5 className="card-title">
+                                                                    {e.enquiry_details.age}
+                                                                </h5>
+                                                            </div>
+                                                            <div className="patient-card-spacing">
+                                                                <i className="fa fa-intersex fa-2x" aria-hidden="true"></i>
+                                                                <label className="w-50 patient-label">Gender</label>
+                                                                <h5 className="card-title">
+                                                                    {e.enquiry_details.gender}
+                                                                </h5>
+                                                            </div>
+                                                            <div className="patient-card-spacing">
+                                                                <i className="fa fa-tint fa-2x" aria-hidden="true"></i>
+                                                                <label className="w-50 align-middle patient-label">Blood Group</label>
+                                                                <h5 className="card-title">
+                                                                    {e.enquiry_details.blood_group}
+                                                                </h5>
+                                                            </div>
+                                                            <div className="patient-card-spacing">
+                                                                <i className="fa fa-history fa-2x" aria-hidden="true"></i>
+                                                                <label className="w-50 align-middle patient-label">Duration of Infection</label>
+                                                                <h5 className="card-title ">
+                                                                    {e.enquiry_details.duration}
+                                                                </h5>
+                                                            </div>
+                                                            <div className="patient-card-spacing">
+                                                                {/* <div className="media-footer">
+                                                                    <button href="#" className="btn btn-info pull-right" type="button">Show All</button>
+                                                                </div> */}
+                                                                <div>
+                                                                    {/* <label className="w-50">Booked Date</label> */}
+                                                                    <i className="fa fa-calendar fa-2x" aria-hidden="true"></i>
+                                                                    <label className="w-50 align-middle patient-label">Booked Date</label>
+                                                                    <h5 className="card-title">
+                                                                        {e.booking_date}
+                                                                    </h5>
+                                                                </div>
+                                                                <div className="patient-card-spacing">
+                                                                    <i className="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+                                                                    <label className="w-50 align-middle patient-label">Booked Time</label>
+                                                                    <h5 className="card-title">
+                                                                        {e.booking_time}
+                                                                    </h5>
+                                                                </div>
+                                                                {/* <hr /> */}
+                                                                {/* <div className="card-footer">
+                                                                    <div className="author">
+                                                                        <a href="#pablo">
+                                                                            <img src="../assets/img/faces/kaci-baum-2.jpg" alt="..." className="avatar img-raised" />
+                                                                            <span>Nickie Kelly</span>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div className="stats">
+                                                                        <i className="fa fa-clock-o" aria-hidden="true"></i> 5 min read
+                                                                    </div>
+                                                                </div> */}
+                                                            </div>
+                                                            <hr/>
+                                                            <div className="patient-card-spacing card-description">
+                                                                {/* <h5 className="my-3 text-danger">Current Diseases</h5> */}
+                                                                <label className="w-50 patient-label-head my-3">Current Diseases</label>
+                                                                {/* {disease_data.map((e)=> */}
+                                                                {e.enquiry_details.diseases==""?"":
+                                                                   
+                                                                    <ul>
+                                                                    {JSON.parse(e.enquiry_details.diseases)}
+                                                                </ul>}
+                                                                {/* )} */}
+                                                               
+                                                            </div>
+                                                            <p className="card-description">
+                                                                <label className="w-50 patient-label-head my-3">Existing  Diseases</label>
+                                                                <h5 className="card-title">
+                                                                {e.enquiry_details.existing_diseases}
+                                                                </h5>
+                                                            </p>
+                                                        </div>
+                                                
+
                                             </div>
-                                            <h3 className="card-title">12/08/2024</h3>
-                                            <p className="card-description">
-                                                3pm-4pmm
-                                            </p>
-                                            <div className="card-footer">
-                                                <Link to="#" className="btn btn-neutral btn-round">No booking</Link>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
-                                </div> */}
+
+
+                                
+
+                                   )
+                                    }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <Footer />
-            {secure}
         </>
     )
 }

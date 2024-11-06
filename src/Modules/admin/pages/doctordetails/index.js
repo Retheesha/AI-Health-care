@@ -11,15 +11,15 @@ import { useParams } from 'react-router-dom';
 export const Admindoctordetails = () => {
 
 
-    const [view, setview] = useState([])
-   
+    const [view, setview] = useState({})
+    // const [special,setspecial]= useState([])
     const { id } = useParams()
-
     useEffect(() => {
 
-        axios.get(`http://agaram.academy/api/action.php?request=ai_health_viewdoctor&id=${id}`).then((viewdoctor) => {
+        axios.get(`https://retheesha.pythonanywhere.com/viewdoctor/${id}`).then((viewdoctor) => {
             setview(viewdoctor.data.data)
-            console.log(viewdoctor.data.data)
+            // setspecial(viewdoctor.data.data.specialist)
+            // console.log(viewdoctor.data.data)
         })
     }, [])
 
@@ -27,74 +27,61 @@ export const Admindoctordetails = () => {
 
     return (
         <>
+            <Header />
+                <div className="col-md-10 offset-md-10 my-2 mx-12">
 
+                    <Link to={"/admin/homepage"} className="btn btn-move-left btn-link btn-lg "><i class="nc-icon nc-minimal-left"></i>Back to home</Link>
 
-            <div className="add-product sidebar-collapse">
-                {/* <!-- Navbar --> */}
-                <Header />
-               
-                <br />
-
-                {view.map((eachh) => <div>
-
-                    <div className="typography-line">
-                        <h1 className="text-info"> {eachh.name} <i className="fa fa-stethoscope "></i>
-                        </h1>
-                    </div>
-                    <br />
-
-
-                    <div className="container">
-                        <div className="col-md-8 col-sm-8">
-                            <div className="card card-blog">
-                                <div className="card-image">
-                                    <a href="javascript:;">
-                                        <img className="img" src="../../assets/img/faces/pexels-karolina-grabowska-4021779.jpg" />
-                                    </a>
-                                </div>
-                                <div className="card-body">
-                                    <h4 className="card-title">
-                                        {eachh.specialist} </h4>
-                                    <hr />
-                                    <div className="card-description">
-                                        <h4>{eachh.doctorid}</h4>
-                                    </div>
-                                    <hr />
-                                    <div className="card-description">
-                                        <h4>{eachh.email}</h4>
-                                    </div>
-                                    <hr />
-                                    <div className="card-description">
-                                        <h4>{eachh.phone}</h4>
-                                    </div>
-                                    <hr />
-                                    <div className="card-description">
-                                        <h4>{eachh.city}</h4>
-
-                                    </div>
-                                    <hr />
-
-
-                                        <div className="social">
-                                            <button href="#paper-kit" className="btn btn-just-icon btn-facebook"><i className="fa fa-facebook"></i></button>
-                                            <button href="#paper-kit" className="btn btn-just-icon btn-google" ><i className="fa fa-google"></i></button>
-                                            <button href="#paper-kit" className="btn btn-just-icon btn-twitter"><i className="fa fa-twitter"></i></button>
+                </div>
+                <div class="container">
+                    <div class="space-top"></div>
+                    <div class="row">
+                        {/* {view.map((eachh) => */}
+                            <div class="col-md-12">
+                                <div class="card card-profile card-plain">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card-img-top">
+                                                <a href="javascript:;">
+                                                    <img class="img" src="../../assets/img/faces/pexels-karolina-grabowska-4021779.jpg" />
+                                                </a>
+                                            </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="card-body text-left ml-4">
+                                                <h1 className="text-dark"> {view.name} <i className="fa fa-stethoscope "></i>
+                                                </h1>
+                                                <br />
+                                                <h6 className="card-catagory" style={{ color: "#20c997" }}>
+                                                    {/* {JSON.parse(view.specialist)}  */}
+                                                    {/* {view.specialist} */}
+                                                    </h6>
+                                                <div className="card-description">
+                                                    <i class="fa fa-address-card-o fa-2x mr-4" aria-hidden="true"></i>
+                                                    <b>{view.doctor_id}</b>
+                                                </div>
+                                                <div className="card-description">
+                                                    <i class="fa fa-envelope-o fa-2x text-primary mr-4" aria-hidden="true"></i>
 
+                                                    <b>{view.email}</b>
+                                                </div>
+                                                <div className="card-description">
+                                                    <i class="fa fa-phone fa-2x text-info mr-4" aria-hidden="true"></i>
+                                                    <b>{view.phone}</b>
+                                                </div>
+                                                <div className="card-description">
+                                                    <i class="fa fa-map-marker fa-2x text-danger mr-4" aria-hidden="true"></i>
+                                                    <b>{view.city}</b>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-
-                        </div> 
-                </div> )}
-
-                <div className="col-md-4 offset-md-4 my-5 mx-6">
-
-                    <Link to={"/admin/homepage"} className="btn btn-move-left btn-secondary btn-lg btn-round"><i class="nc-icon nc-minimal-left"></i>Back to home</Link>
-
+                        {/* )} */}
+                    </div>
                 </div>
-            </div >
+
             <Footer />
         </>
     )

@@ -31,10 +31,13 @@ export const doctorRegisterSlice = createSlice(
         reducers: {
             submit_Register: (state, action) => {
                 state.doctor_register_data = action.payload
+            },
+            updateSpecialist: (state, action)=>{
+                state.doctor_register_data.specialist= action.payload
             }
         }
     }
 )
 
-export const { submit_Register } = doctorRegisterSlice.actions
+export const { submit_Register,updateSpecialist } = doctorRegisterSlice.actions
 export default doctorRegisterSlice.reducer

@@ -1,0 +1,33 @@
+.body-bg{
+    background-color: #effdfa;
+}
+.container-bg{
+    background-color: #ffff;
+}
+.container-bg img{
+    width: 100%;
+}
+.doctor-bg-left{
+    background-color: lightseagreen;
+}
+.doctor-bg-left img{
+    border-radius: 20px;
+}
+.doctor-bg-right{
+    background-color: #bef0f1;
+    padding: 20px 30px;
+}
+.doctor-bg-right label,h6{
+    display: inline-block;
+}
+.doctor-bg-right h3{
+    font-size: xx-large;
+    font-weight: 600;
+    color: cadetblue;
+}
+.doctor-bg-right i{
+    margin-right: 5px;
+}
+.doctor-bg-right label{
+    width: 37%;
+}

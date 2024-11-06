@@ -1,0 +1,23 @@
+.add-product{
+    background-color: #effdfa;
+}
+.body-bg{
+    background-color: #effdfa;
+}
+.slot-book-head{
+    font-weight: 700;
+    color: #249ebd;
+    font-size: xx-large;
+    text-align: center;
+    margin: 30px 0;
+}
+.form-inputs,.form-button{
+    width: 62%;
+}
+.slot-added{
+    background-color: #ffff;
+    /* border: 1px solid rgb(184, 180, 180); */
+}
+.table-color{
+    background-color: rgb(171, 236, 176);
+}

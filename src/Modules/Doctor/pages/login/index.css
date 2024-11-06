@@ -1,0 +1,20 @@
+.log_page .card-register{
+    background-color: #ffffff
+}
+.log_page input,.log_page input:focus{
+    background-color: #e0fbf2;
+}
+.log_page button{
+    width: 50%;
+    margin: 0 auto;
+    background-color: #5ce1e6;
+    border-color: #5ce1e6;
+}
+/* .log_page::placeholder{
+    color: blue;
+} */
+/* .log_page button:hover{
+    background-color: #ffde59;
+    border-color: #ffde59;
+
+} */

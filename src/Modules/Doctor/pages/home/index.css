@@ -1,0 +1,39 @@
+.lable-color label{
+    color: blue;
+}
+.lable-color label,h5{
+    display: inline-block;
+}
+.patient-card h3{
+    font-weight: 700;
+    color: #249ebd;
+    font-size: xx-large;
+}
+.patient-head{
+    border-color: #249ebd;
+    margin: 0 0 27px 0;
+    border-width: 5px;
+    width: 20%;
+}
+.patient-card i{
+    padding-right: 43px;
+    color: #72e8d2;
+}
+.patient-card-spacing{
+    margin: 10px 0;
+}
+.patient-label{
+    font-size: 15px;
+    font-weight: 500;
+}
+.patient-label-head{
+    font-size: 17px;
+    font-weight: 600;   
+}
+.body-bg{
+    background-color: #effdfa;
+}
+.card-image .img-raised{
+    margin-top: 0;
+    padding-top: 30px;
+}

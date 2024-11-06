@@ -5,26 +5,43 @@ import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { set_slot_data } from "../../slices/slotSlice"
 import axios from "axios"
+import "./index.css"
 
 export const DoctorSlot = () => {
 
+    // sumbit data globe state start 
+
     const get_slot_state = useSelector((state) => state.doctor_slot_state).doctorSlotSlice
-    const doctorLoginSubmit = useSelector((state)=>state.doctor_login_state).doctorLogin
+
+    // sumbit data globe state end 
+
+    const doctorLoginSubmit = useSelector((state) => state.doctor_login_state).doctorLogin
     const set_dispatch = useDispatch()
     const navigate = useNavigate()
 
+    // add slot local state starts 
+
+    const [getList, addList] = useState({
+        consulting_fee: "",
+        clinic_details: []
+    })
+    console.log(getList.clinic_details)
     const [detail, setDetail] = useState({
         clinic_day: "",
         clinic_timing: ""
     })
 
-    const [getList, addList] = useState({
-        consulting_fee: "",
-        clinic_details: []
-})
+    let a = 1;
+    console.log(a)
 
-const [slotList, setSlotList] = useState([])
-   
+    // add slot local state end 
+
+
+    // delete slot starts
+
+    // const [slotList, setSlotList] = useState([])
+
+    // delete slot end
 
     const handledChange = (e) => {
         setDetail({ ...detail, [e.target.name]: e.target.value })
@@ -34,7 +51,6 @@ const [slotList, setSlotList] = useState([])
     const addSlotList = () => {
         const list_data = { ...getList, clinic_details: [...getList.clinic_details, detail] }
         addList(list_data)
-
     }
 
 
@@ -45,41 +61,62 @@ const [slotList, setSlotList] = useState([])
 
         const slot_data = new FormData()
 
-        slot_data.append("doctor_id",doctorLoginSubmit.data.id)
-        // slot_data.append("doctor_id", getList.doctor_id)
+        slot_data.append("doctor_id", doctorLoginSubmit.data.id)
         slot_data.append("consulting_fee", getList.consulting_fee)
         slot_data.append("clinic_details", JSON.stringify(getList.clinic_details))
+        // slot_data.append("doctor_id", getList.doctor_id)
 
 
-        axios.post("http://agaram.academy/api/action.php?request=ai_health_create_doctor_slot", slot_data).then((response) => {
-            console.log(response.data)
-            alert(response.data)
+
+        axios.post("https://retheesha.pythonanywhere.com/createdoctorslot", slot_data).then((response) => {
+            // console.log(response.data)
+
 
         })
 
     }
-
 
 
     const slotDelete = (index) => {
+// <<<<<<< doctor-module-2
 
-        const data = slotList.filter((slotListvalues, slotListindex) => {
-            if (index != slotListindex) {
-                return slotListvalues
-            }
-        })
-        setSlotList(data)
+//         const data = getList.clinic_details.filter((getListvalues, getListindex) => {
+//             if (index != getListindex) {
+//                 return getListvalues
+//             }
+//         })
+//         addList(data)
+// =======
+        console.log(index)
+        const data = getList.clinic_details.filter((getlistvalues, getListindex) => getListindex !== index);
+        addList(prevState => ({
+            ...prevState,
+            clinic_details: data
+        }));
+        // console.log(data)
+// >>>>>>> submaster
 
     }
+
+
+    // const slotDelete = (index) => {
+
+    //     const data = getList.filter((getListvalues, getListindex) => {
+    //         if (index != getListindex) {
+    //             return getListvalues
+    //         }
+    //     })
+    //     addList(data)
+
+    // }
 
     return (
         <>
             <Header />
             <div className="add-product sidebar-collapse">
                 <div className="row">
-                    <div className="col-md-6 col-sm-6 mx-auto ">
-                        <h2>Add Visiting Time Slot</h2>
-                        <hr />
+                    <div className="col-md-8 col-sm-6 mx-auto ">
+                        <h2 className="slot-book-head text-secondary">BOOKING TIME SLOT</h2>
                         {/* <div className="row">
                             <div className="col-md-4 col-sm-4">
                                 <h4> Day</h4>
@@ -101,8 +138,8 @@ const [slotList, setSlotList] = useState([])
                         </div> */}
                         <div className="row">
 
-                            <div className="col-md-4 col-sm-4">
-                                <h6>Select  Day</h6>
+                            <div className="col-md-3 col-sm-4">
+                                <h6>Select Day</h6>
                                 <hr />
                                 {/* <select name="huge" className="form-select" data-style="btn btn-outline-default btn-block" style={{ height: "40px" }} data-menu-style="" onKeyUp={(e) => addList({ ...getList,clinic_details [{clinic_day: e.target.value}] })} > */}
                                 <select type='dropdown' name="clinic_day" className="form-select" data-style="btn btn-outline-default btn-block" style={{ height: "40px" }} data-menu-style="" onClick={handledChange} >
@@ -118,8 +155,8 @@ const [slotList, setSlotList] = useState([])
 
                                 {/* <input type="text" className="form-control no-border bg-secondary text-white" placeholder="Enter Day (Ex: Sunday)" onKeyUp={(e) => addList({ ...getList, clinic_day: e.target.value })} /> */}
                             </div>
-                            <div className="col-md-4 col-sm-4">
-                                <h6>Timing</h6>
+                            <div className="col-md-3 col-sm-4">
+                                <h6>Select Timing</h6>
                                 <hr />
                                 <select name="clinic_timing" className="form-select" data-style="btn btn-outline-default btn-block" style={{ height: "40px" }} onClick={handledChange}>
                                     <option value="select time">Select Time</option>
@@ -128,6 +165,8 @@ const [slotList, setSlotList] = useState([])
                                     <option value="10am to 1pm">10am to 1pm</option>
                                     <option value="2pm to 4pm">2pm to 4pm</option>
                                     <option value="5pm to 7pm">5pm to 7pm</option>
+                                    <option value="Holiday">Holiday</option>
+
                                 </select>
                                 {/* <div className="form-group">
                                         <select name="huge" className="selectpicker" data-style="btn btn-outline-default btn-block"
@@ -157,13 +196,17 @@ const [slotList, setSlotList] = useState([])
                                     <option value="50">50</option>
                                 </select>
                             </div> */}
-                            <div className="col-md-4 col-sm-4">
+                            <div className="col-md-3 col-sm-4">
                                 <h6> Consultation Fee</h6>
                                 <hr />
                                 {/* <button className="btn btn-danger btn-block"><i className="fa fa-inr" aria-hidden="true"></i>100</button> */}
-                                <input type="number" className="form-control border-secondary p-0 text-center" placeholder="₹ 100" onKeyUp={(e) => addList({ ...getList, consulting_fee: e.target.value })} />
+                                <input type="number" className="form-control form-inputs border-secondary p-0 text-center" placeholder="Enter Fee ₹ 100" onKeyUp={(e) => addList({ ...getList, consulting_fee: e.target.value })} />
                             </div>
-                            <button className="btn btn-primary btn-block btn-round w-25 mt-5 mx-auto" type="button" onClick={addSlotList}>ADD</button>
+                            <div className="col-md-3 col-sm-4">
+                                <h6> Action</h6>
+                                <hr />
+                                <button className="btn btn-primary btn-block btn-round form-button" type="button" onClick={addSlotList}>ADD</button>
+                            </div>
                         </div>
 
                         {/* <hr /> */}
@@ -171,13 +214,13 @@ const [slotList, setSlotList] = useState([])
                     </div>
                 </div>
                 {/* <hr /> */}
-                <div className="main">
-                    <div className="section pt-3">
-                        <div className="container">
-                            <h3 className="text-center title">  Added Visit Time List</h3>
-                            <div className="col-md-10 ml-auto mr-auto">
+                <div className="main body-bg">
+                    <div className="section pt-3 body-bg">
+                        <div className="container px-5">
+                            <h4 className="text-center title mt-5 mb-0 py-3 slot-added">  Added Visit Time List</h4>
+                            <div className=" ml-auto mr-auto">
                                 <div className="table-responsive">
-                                    <table className="table table-shopping">
+                                    <table className="table table-shopping table-striped tableslotDelete-color">
                                         <thead>
                                             <tr>
                                                 {/* <!-- <th className="text-center"></th>
@@ -190,30 +233,28 @@ const [slotList, setSlotList] = useState([])
                                         </thead>
                                         <tbody>
 
-                                            {
-                                                getList.clinic_details.map((e, index) => {
-                                                    return (
+                                            {getList.clinic_details && getList.clinic_details.length > 0 ? 
+                                             getList.clinic_details.map((e, index) => 
                                                         // console.log(index)
                                                         <tr key={index}>
-                                                            <td className="text-center">
+                                                            <td className="text-center py-2">
                                                                 <h6>{e.clinic_day}</h6>
                                                             </td>
-                                                            <td className="td-number text-center">
+                                                            <td className="td-number text-center py-2">
                                                                 <h6>{e.clinic_timing}</h6>
                                                             </td>
-                                                            <td className="td-number text-center">
+                                                            <td className="td-number text-center py-2">
                                                                 <h6>{getList.consulting_fee}</h6>
                                                             </td>
-                                                            <td className="td-number text-center">
-                                                                <button className="btn btn-outline-danger" type="button" onClick={() => slotDelete(index)}>Delete</button>
+                                                            <td className="td-number text-center py-2">
+                                                                <button className="btn btn-outline-danger" type="button" onClick={()=>slotDelete(index)}>Delete</button>
                                                             </td>
                                                         </tr>
-                                                    )
-                                                }
+                                                    ):""
 
-                                                )
+                                                
                                             }
-                                             
+
 
                                         </tbody>
                                     </table>

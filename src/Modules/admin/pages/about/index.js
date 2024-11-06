@@ -8,7 +8,7 @@ export const About = () => {
 
 
             <div class="page-header page-header-small" style={{ backgroundImage: "url('../../assets/img/sections/pexels-fauxels-3183150.jpg')" }}>
-                <div class="filter filter-primary"></div>
+                <div class="filter filter-secondary"></div>
                 <div class="content-center">
                     <div class="container">
                         <h1> We are AI-Health-Care</h1>
