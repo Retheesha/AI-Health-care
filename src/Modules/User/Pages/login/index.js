@@ -86,7 +86,7 @@ export const Userlogin = () => {
                     <a href="#paper-kit" className="btn btn-link btn-danger">Forgot password?</a>
                   </div>
                   <div className="register text-center my-2">
-                    <strong>New User : <Link className="btn-link" to="/user/register">
+                    <strong>Don't have an account? <Link className="btn-link" to="/user/register">
                       Register.</Link></strong>
                   </div>
                 </div>

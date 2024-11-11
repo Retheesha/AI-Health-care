@@ -26,9 +26,11 @@ export const Doctor_Home = () => {
 
     // get doctor id in login page
     const doctorLoginSubmit = useSelector((state) => state.doctor_login_state).doctorLogin    
+    const doctor_id=localStorage.getItem("doctor_id")
+    const doctorId = doctorLoginSubmit?.data?.id || doctor_id;
 
     useEffect(() => {
-            axios.get(`https://retheesha.pythonanywhere.com/getpatientbooking/${doctorLoginSubmit.data.id}`).then((response) => {    
+            axios.get(`https://retheesha.pythonanywhere.com/getpatientbooking/${doctorId}`).then((response) => {    
             const patientData = response.data.data;
             set_dispatch(get_patient_data(patientData))
             
@@ -56,7 +58,7 @@ export const Doctor_Home = () => {
                         <div className="container">
                             
                         <div className="row">
-                                {todaySlots==""? <h2 className="text-center align-middle m-0">No Patient Booked</h2>:
+                                {todaySlots==""? <h2 className="text-center align-middle" style={{ marginBottom:"215px"}}>No Patient Booked</h2>:
                                 todaySlots.map((e) =>
                                     
                                     <div className="col-6 mx-auto ">

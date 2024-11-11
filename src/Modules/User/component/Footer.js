@@ -5,9 +5,9 @@ export const Footer=()=>{
           <div className="row">
             <nav className="footer-nav">
               <ul>
-                <li><a href="https://www.creative-tim.com" target="_blank">About us</a></li>
-                <li><a href="http://blog.creative-tim.com/" target="_blank">Contact us</a></li>
-                <li><a href="https://www.creative-tim.com/license" target="_blank">Privacy Policy</a></li>
+                <li>About us</li>
+                <li>Contact us</li>
+                <li>Privacy Policy</li>
               </ul>
             </nav>
             <div className="credits ml-auto">

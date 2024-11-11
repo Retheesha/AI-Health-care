@@ -25,7 +25,7 @@ export const UserBooking = () => {
     useEffect(() => {
         const today = moment()
 
-        const tomorrow = moment(today).add(0, "days");
+        const tomorrow = moment(today).add(1, "days");
 
         setmindate(tomorrow.format('YYYY-MM-DD'))
 

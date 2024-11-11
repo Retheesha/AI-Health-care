@@ -10,12 +10,13 @@ export const Doctor_profile = () => {
     const [doctorProfile, getDoctorData] = useState({})
     const doctorLoginSubmit = useSelector((state) => state.doctor_login_state).doctorLogin
     console.log(doctorLoginSubmit)
-
+    const doctor_id=localStorage.getItem("doctor_id")
+    const doctorId = doctorLoginSubmit?.data?.id || doctor_id
 
     useEffect(() => {
-        axios.get(`http://agaram.academy/api/action.php?request=ai_health_getalldoctorsdetails&doctor_id=${doctorLoginSubmit.data.id}`).then((doctorDetail) => {
+        axios.get(`https://retheesha.pythonanywhere.com/viewdoctor/${doctorId}`).then((doctorDetail) => {
             getDoctorData(doctorDetail.data.data)
-
+            
         })
     }, [])
 
@@ -39,21 +40,21 @@ export const Doctor_profile = () => {
                                         <div>
                                             {/* <label className="w-50">Name</label> */}
                                             <h3 className="card-title">
-                                                {doctorProfile.name} Srimathan S
+                                            {doctorProfile?.name ? doctorProfile.name.toUpperCase() : "Name not available"}
                                             </h3>
                                         </div>
                                         <div>
                                             <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
                                             <label className="">Email</label>
                                             <h6 className="card-title">
-                                                {/* {doctorProfile.age} */} 60@gmail.Com
+                                                {doctorProfile.email} 
                                             </h6>
                                         </div>
                                         <div>
                                             <i class="fa fa-id-card-o fa-1x" aria-hidden="true"></i>
                                             <label className="">UID</label>
                                             <h6 className="card-title">
-                                                {/* {doctorProfile.gender} */} 9520
+                                                {doctorProfile.doctorid} 
                                             </h6>
                                         </div>
 
@@ -61,21 +62,21 @@ export const Doctor_profile = () => {
                                             <i class="fa fa-mobile fa-2x" aria-hidden="true"></i>
                                             <label className="">Phone No</label>
                                             <h6 className="card-title">
-                                                {/* {doctorProfile.duration} */} + 91 982223725
+                                                {doctorProfile.phone} 
                                             </h6>
                                         </div>
                                         <div>
                                             <i class="fa fa fa-map-marker fa-1x" aria-hidden="true"></i>
                                             <label className="">City</label>
                                             <h6 className="card-title">
-                                                {/* {doctorProfile.duration} */} Nagercoil
+                                                {doctorProfile.city} 
                                             </h6>
                                         </div>
                                         <div>
                                             <i class="fa fa-scribd fa-1x" aria-hidden="true"></i>
                                             <label className="">Specialist</label>
                                             <h6 className="card-title">
-                                                {/* {doctorProfile.duration} */} Specialist
+                                                {doctorProfile.specialist} 
                                             </h6>
                                             {/* <h6 className="card-title">
                                             <ul className="card-title">
