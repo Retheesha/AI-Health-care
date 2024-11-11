@@ -29,13 +29,16 @@ export const Doctor_Login = () => {
 // >>>>>>> submaster
 
         axios.post("https://retheesha.pythonanywhere.com/doctorlogin", formData).then((log) => {
-            let status = log.data.status
-            console.log(log.data)
-            if (status == "success") {
+            if (log.data.status== "success" && (log.data.data?.status=="approved")) {
                 // localStorage.setItem("isLogged", "true")
                 navigate("/doctor/home")
                 dispatch(get_login_data(log.data))
-            }else {
+                localStorage.setItem("doctor_id",log.data.data.id)
+            }
+            else if(log.data.data?.status=="processing"){
+                alert("Your registeration under verification please wait untill process")
+            }
+            else {
                 alert("Please Check the UserId and password")
             }
         }

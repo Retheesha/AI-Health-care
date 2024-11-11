@@ -27,9 +27,11 @@ export const Slot_List = () => {
 
 
     const doctorLoginSubmit = useSelector((state) => state.doctor_login_state).doctorLogin
+    const doctor_id=localStorage.getItem("doctor_id")
+    const doctorId = doctorLoginSubmit?.data?.id || doctor_id;
 
     useEffect(() => {
-        axios.get(`https://retheesha.pythonanywhere.com/getuniquedoctorslot/${doctorLoginSubmit.data.id}`).then((doctor_booked_slot_all) => {
+        axios.get(`https://retheesha.pythonanywhere.com/getuniquedoctorslot/${doctorId}`).then((doctor_booked_slot_all) => {
             get_doctor_booked_slots(doctor_booked_slot_all.data.data)
             setClinicDetails(JSON.parse(doctor_booked_slot_all.data.data.clinic_details))
         })
@@ -64,7 +66,7 @@ export const Slot_List = () => {
                                             <div className="col-md-3 mx-auto">
                                                 {e == "" ? <h2 className="text-center">No Slots Booked</h2> :
 
-                                                    <div className="card card-pricing " data-color="orange">
+                                                    <div className="card card-price" data-color="orange">
                                                         <div className="card-body slot_bg">
 
                                                             <div className="card-icon">

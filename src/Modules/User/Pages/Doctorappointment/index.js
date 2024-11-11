@@ -22,13 +22,15 @@ export const Doctorapp = () => {
 
     const [searchdoctor, setSearch] = useState(doctorlist)
     const [searchinput, setsearchinput] = useState({ city: "", specialist: "" })
+    const enquiry_id=localStorage.getItem("enquiry_id")
+    const enquiryId = patientState?.id || enquiry_id;
     const display = () => {
         if(doctorlist==""){
-        axios.get("https://retheesha.pythonanywhere.com/getdoctordata").then((res) => {
-            dispatch(setDoctorList((res.data)))
+        axios.get("https://retheesha.pythonanywhere.com/getlogindoctordata").then((res) => {
+            dispatch(setDoctorList((res.data.data)))
             // console.log()
             // dispatch(setSpecialist(res.data.data.map((e)=>JSON.parse(e.specialist))))
-            setSearch(res.data)
+            setSearch(res.data.data)
         })
         }
         // else{
@@ -84,7 +86,7 @@ export const Doctorapp = () => {
                                             </div>
                                         </div>
                                         <div className="col-md-2">
-                                            <button type="button" className="btn btn-success btn-block" onClick={() => Filter(searchinput`                                                                                                              `)}><i className="nc-icon nc-zoom-split"></i> &nbsp; Search</button>
+                                            <button type="button" className="btn btn-success btn-block" onClick={() => Filter(searchinput)}><i className="nc-icon nc-zoom-split"></i> &nbsp; Search</button>
                                         </div>
                                     </div>
                                 </form>
@@ -117,7 +119,7 @@ export const Doctorapp = () => {
                                                         </p>
                                                         <button type="button" className="btn btn-success btn-round my-3" data-toggle="modal" data-target="#loginModal" onClick={() => {
                                                                 booknow(each.id)
-                                                                   navigate(`/user/booking?doctorid=${each.id}&enquiry_id=${patientState.id}`) 
+                                                                   navigate(`/user/booking?doctorid=${each.id}&enquiry_id=${enquiryId}`) 
                                                             }}>
                                                                 Book Now
                                                             </button>

@@ -50,6 +50,7 @@ export const Userhome = () => {
             axios.post("https://retheesha.pythonanywhere.com/createpatientdetails", formdata).then((res) => {    
                 console.log(res)
                 dispatch(setPatient(res.data.data))
+                localStorage.setItem("enquiry_id",res.data.data.id)
                 navigate('/user/doctorapp')
             })
 

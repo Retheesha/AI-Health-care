@@ -39,18 +39,20 @@ export const Doctor_Register = () => {
         formData.append("phone", doctorRegisterSubmit.phone)
         formData.append("city", doctorRegisterSubmit.city)
 
-
-
+        if((doctorRegisterSubmit.name=="" || doctorRegisterSubmit.email==""|| doctorRegisterSubmit.password==""||doctorRegisterSubmit.doctor_id==""|| doctorRegisterSubmit.specialist==""||doctorRegisterSubmit.city==""|| doctorRegisterSubmit.phone=="")){
+            alert("Please Fill out the required fields")
+           }
+        else{
             axios.post("https://retheesha.pythonanywhere.com/doctorregister", formData).then((res) => {
                 if(res.data.status=="success"){
                     alert("Registration Success")
                     navigate("/doctor/login")
                   }
-                  else if(res.data.message=="User already exists"){
+                else if(res.data.message=="User already exists"){
                     alert("This email is already registered. Please use a different email address.")
                   }
                 })
-
+            }
 
         // }, [])
 
