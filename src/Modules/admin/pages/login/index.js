@@ -38,10 +38,8 @@ export const Adminlogin = () => {
                     alert("Login successfully")
                     dispatch(login(log.data.data))
                     navigate("/admin/homepage")
-
-
+                    localStorage.setItem("admin_token",log.data.data.admin_token)
                 }
-
                 else {
                     alert("login failed")
                 }

@@ -27,6 +27,7 @@ export const Userlogin = () => {
         if (res.data.status == "success") {
           dispatch(setloginUser(res.data.data))
           navigate("/user/home")
+          localStorage.setItem("user_token",res.data.data.user_token)
         }
         else {
           alert("Unable to log in. Please verify your credentials and try again.")

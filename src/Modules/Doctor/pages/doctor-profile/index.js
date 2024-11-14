@@ -13,8 +13,11 @@ export const Doctor_profile = () => {
     const doctor_id=localStorage.getItem("doctor_id")
     const doctorId = doctorLoginSubmit?.data?.id || doctor_id
 
+    const doctor_token=localStorage.getItem("doctor_token")
+    const headers={'Authorization':`Bearer ${doctor_token}`}
+
     useEffect(() => {
-        axios.get(`https://retheesha.pythonanywhere.com/viewdoctor/${doctorId}`).then((doctorDetail) => {
+        axios.get(`https://retheesha.pythonanywhere.com/viewdoctor/${doctorId}`,{headers}).then((doctorDetail) => {
             getDoctorData(doctorDetail.data.data)
             
         })

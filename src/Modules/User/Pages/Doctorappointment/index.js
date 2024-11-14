@@ -24,9 +24,13 @@ export const Doctorapp = () => {
     const [searchinput, setsearchinput] = useState({ city: "", specialist: "" })
     const enquiry_id=localStorage.getItem("enquiry_id")
     const enquiryId = patientState?.id || enquiry_id;
+
+    const user_token=localStorage.getItem("user_token")
+    const headers={'Authorization':`Bearer ${user_token}`}
+
     const display = () => {
         if(doctorlist==""){
-        axios.get("https://retheesha.pythonanywhere.com/getlogindoctordata").then((res) => {
+        axios.get("https://retheesha.pythonanywhere.com/getlogindoctordata",{headers}).then((res) => {
             dispatch(setDoctorList((res.data.data)))
             // console.log()
             // dispatch(setSpecialist(res.data.data.map((e)=>JSON.parse(e.specialist))))
