@@ -28,6 +28,8 @@ export const Userhome = () => {
     const selftreatment = () => {
         navigate("/user/view")
     }
+    const user_token=localStorage.getItem("user_token")
+    const headers={'Authorization':`Bearer ${user_token}`}
     const doctorappointment = () => {
         const formdata = new FormData();
         formdata.append("request", patientState.request)
@@ -47,7 +49,7 @@ export const Userhome = () => {
         }
         else{
             // axios.post(`http://agaram.academy/api/action.php?request=${patientState.request}`, formdata).then((res) => {
-            axios.post("https://retheesha.pythonanywhere.com/createpatientdetails", formdata).then((res) => {    
+            axios.post("https://retheesha.pythonanywhere.com/createpatientdetails", formdata,{headers}).then((res) => {    
                 console.log(res)
                 dispatch(setPatient(res.data.data))
                 localStorage.setItem("enquiry_id",res.data.data.id)

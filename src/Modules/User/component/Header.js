@@ -1,7 +1,12 @@
 import { useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 export const Header=()=>{
+    const navigate=useNavigate()
     const userLoginvalue=useSelector((state)=>state.userlogin).logindetails
+    const logout=()=>{
+        localStorage.removeItem("user_token")
+        navigate("/user/login")
+    }
     return(<>
         <nav className="navbar navbar-expand-lg fixed-top nav-down navheader bg" style={{backgroundColor:"#45aa8c"}}>
                 <div className="container">
@@ -47,10 +52,10 @@ export const Header=()=>{
                                         <i className="fa fa-history"></i>
                                         History
                                     </Link>
-                                    <Link className="dropdown-item" to="/user/login" >
+                                    <button onClick={logout} className="dropdown-item">
                                         <i className="fa fa-sign-out"></i>
                                        logout
-                                    </Link>
+                                    </button>
                                 </div>
                             </li>
                         </ul>

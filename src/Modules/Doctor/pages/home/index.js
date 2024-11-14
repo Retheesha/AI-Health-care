@@ -29,8 +29,11 @@ export const Doctor_Home = () => {
     const doctor_id=localStorage.getItem("doctor_id")
     const doctorId = doctorLoginSubmit?.data?.id || doctor_id;
 
+    const doctor_token=localStorage.getItem("doctor_token")
+    const headers={'Authorization':`Bearer ${doctor_token}`}
+
     useEffect(() => {
-            axios.get(`https://retheesha.pythonanywhere.com/getpatientbooking/${doctorId}`).then((response) => {    
+            axios.get(`https://retheesha.pythonanywhere.com/getpatientbooking/${doctorId}`,{headers}).then((response) => {    
             const patientData = response.data.data;
             set_dispatch(get_patient_data(patientData))
             

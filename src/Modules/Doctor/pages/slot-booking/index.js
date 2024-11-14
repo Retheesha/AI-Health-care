@@ -52,7 +52,8 @@ export const DoctorSlot = () => {
         const list_data = { ...getList, clinic_details: [...getList.clinic_details, detail] }
         addList(list_data)
     }
-
+    const doctor_token=localStorage.getItem("doctor_token")
+    const headers={'Authorization':`Bearer ${doctor_token}`}
 
     const handledSumbit = () => {
 
@@ -68,7 +69,7 @@ export const DoctorSlot = () => {
 
 
 
-        axios.post("https://retheesha.pythonanywhere.com/createdoctorslot", slot_data).then((response) => {
+        axios.post("https://retheesha.pythonanywhere.com/createdoctorslot", slot_data,{headers}).then((response) => {
             // console.log(response.data)
 
 

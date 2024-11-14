@@ -14,9 +14,11 @@ export const Admindoctordetails = () => {
     const [view, setview] = useState({})
     // const [special,setspecial]= useState([])
     const { id } = useParams()
+    const admin_token=localStorage.getItem("admin_token")
+    const headers={'Authorization':`Bearer ${admin_token}`}
     useEffect(() => {
 
-        axios.get(`https://retheesha.pythonanywhere.com/viewdoctor/${id}`).then((viewdoctor) => {
+        axios.get(`https://retheesha.pythonanywhere.com/viewdoctor/${id}`,{headers}).then((viewdoctor) => {
             setview(viewdoctor.data.data)
             // setspecial(viewdoctor.data.data.specialist)
             // console.log(viewdoctor.data.data)

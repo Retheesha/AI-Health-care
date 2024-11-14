@@ -30,8 +30,10 @@ export const Slot_List = () => {
     const doctor_id=localStorage.getItem("doctor_id")
     const doctorId = doctorLoginSubmit?.data?.id || doctor_id;
 
+    const doctor_token=localStorage.getItem("doctor_token")
+    const headers={'Authorization':`Bearer ${doctor_token}`}
     useEffect(() => {
-        axios.get(`https://retheesha.pythonanywhere.com/getuniquedoctorslot/${doctorId}`).then((doctor_booked_slot_all) => {
+        axios.get(`https://retheesha.pythonanywhere.com/getuniquedoctorslot/${doctorId}`,{headers}).then((doctor_booked_slot_all) => {
             get_doctor_booked_slots(doctor_booked_slot_all.data.data)
             setClinicDetails(JSON.parse(doctor_booked_slot_all.data.data.clinic_details))
         })

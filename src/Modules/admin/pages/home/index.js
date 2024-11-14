@@ -21,10 +21,11 @@ export const Adminhomepage = () => {
 
 
     // ------ doctor details ------
-
+    const doctor_token=localStorage.getItem("doctor_token")
+    const headers={'Authorization':`Bearer ${doctor_token}`}
     const getdetails = () => {
 
-        axios.get("https://retheesha.pythonanywhere.com/getdoctordata").then((e) => {
+        axios.get("https://retheesha.pythonanywhere.com/getdoctordata",{headers}).then((e) => {
 
             setdoctor(e.data)
             setsearch(e.data)
