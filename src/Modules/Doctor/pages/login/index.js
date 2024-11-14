@@ -34,7 +34,7 @@ export const Doctor_Login = () => {
                 navigate("/doctor/home")
                 dispatch(get_login_data(log.data))
                 localStorage.setItem("doctor_id",log.data.data.id)
-                localStorage.setItem("doctor_token",log.data.data.user_token)
+                localStorage.setItem("doctor_token",log.data.data.doctor_token)
             }
             else if(log.data.data?.status=="processing"){
                 alert("Your registeration under verification please wait untill process")
