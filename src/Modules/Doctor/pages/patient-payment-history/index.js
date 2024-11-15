@@ -31,17 +31,19 @@ export const Patient_History = () => {
     
     useEffect(() => {
       if (doctorLoginSubmit?.data?.id) {
-        const fetchPatientData = async () => {
-          try {
-            const response = await axios.get(`https://retheesha.pythonanywhere.com/getpatientbooking/${doctorLoginSubmit.data.id}`);
-            set_dispatch(get_patient_data(response.data.data));
-          } catch (error) {
-            console.error('Error fetching patient data:', error);
-          }
-        };
-  
-        fetchPatientData();
-      }
+       
+            axios.get(`https://retheesha.pythonanywhere.com/getpatientbooking/${doctorLoginSubmit.data.id}`).then((res)=>{
+                set_dispatch(get_patient_data(res.data.data));
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 401 || error.response.status === 422) {
+                  window.location.href = '/doctor/login'; 
+                } else {
+                  console.error('Error fetching doctor data:', error);
+                }
+              }); 
+            
+          } 
     }, [doctorLoginSubmit, set_dispatch]);
   
     

@@ -7,10 +7,10 @@ export const Header = () => {
 
     const navigate = useNavigate()
 
-    // const logOut = () =>{
-    //     localStorage.removeItem("isLogged")
-    //     navigate = ("/doctor/login")
-    // };
+    const logOut = () =>{
+        localStorage.removeItem("doctor_token")
+        navigate("/doctor/login")
+    };
 
     return (
         <>
@@ -58,10 +58,10 @@ export const Header = () => {
                                     </div>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/doctor/login"> <button className="btn btn-round btn-danger" target="_blank" >
+                                     <button onClick={logOut} className="btn btn-round btn-danger" target="_blank" >
                                         <i className="fa fa-sign-out" style={{ fontSize: "18px" }}></i>
                                         Logout</button>
-                                    </Link>
+                                    
                                 </li>
                             </ul>
                         </div>

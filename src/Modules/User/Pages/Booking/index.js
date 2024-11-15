@@ -37,15 +37,28 @@ export const UserBooking = () => {
     const searchParams = new URLSearchParams(window.location.search)
     const param1 = searchParams.get('doctorid')
     const param2 = searchParams.get('enquiry_id')
+
+    const user_token=localStorage.getItem("user_token")
+    const headers={'Authorization':`Bearer ${user_token}`}
     // getting doctor slot details
     useEffect(() => {
         
             // axios.get(`http://agaram.academy/api/action.php?request=ai_health_get_slot_booking&doctor_id=${param1}`).then((res) => {
-            axios.get(`https://retheesha.pythonanywhere.com/getuniquedoctorslot/${param1}`).then((res) => {
+            axios.get(`https://retheesha.pythonanywhere.com/getuniquedoctorslot/${param1}`,{headers}).then((res) => {
                 console.log(res.data.data)
                 if(res.data.data!=null)
                     dispatch(setDoctorSlotDetails(JSON.parse(res.data.data.clinic_details)))
-                       })
+             })
+             .catch((error) => {
+              
+                if (error.response && error.response.status === 401 || error.response.status === 422) {
+                  // return <Navigate to="/user/login"/>
+                  window.location.href = '/user/login'; 
+                } else {
+                  console.error('Error fetching doctor data:', error);
+                }
+              });
+                       
         
        
 

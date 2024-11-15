@@ -23,6 +23,16 @@ export const Admindoctordetails = () => {
             // setspecial(viewdoctor.data.data.specialist)
             // console.log(viewdoctor.data.data)
         })
+        .catch((error) => {
+              
+            if (error.response && error.response.status === 401 || error.response.status === 422) {
+              // return <Navigate to="/user/login"/>
+              window.location.href = '/'; 
+            } else {
+              console.error('Error fetching doctor data:', error);
+            }
+          }); 
+
     }, [])
 
 

@@ -17,14 +17,24 @@ export const Adminusers = () => {
     }, [])
 
     const navigate = useNavigate();
-
+    const admin_token=localStorage.getItem("admin_token")
+    const headers={'Authorization':`Bearer ${admin_token}`}
 
     const getusers = () => {
 
-        axios.get("https://sivaharish.pythonanywhere.com/userslist").then((e) => {
+        axios.get("https://retheesha.pythonanywhere.com/getuserdata",{headers}).then((e) => {
 
             setuser(e.data)
         })
+        .catch((error) => {
+              
+            if (error.response && error.response.status === 401 || error.response.status === 422) {
+              // return <Navigate to="/user/login"/>
+              window.location.href = '/'; 
+            } else {
+              console.error('Error fetching doctor data:', error);
+            }
+          }); 
 
     }
 
