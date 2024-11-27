@@ -8,16 +8,20 @@ import axios from "axios"
 export const Userview = () => {
     const HistoryState = useSelector((state) => state.userhistory).patienthistory
     const patientState = useSelector((state) => state.patientdetails).patientDetails
+    const AllopathicState=useSelector((state)=>state.ai_tips).ai_details.allopathic
+    const SiddhaState=useSelector((state)=>state.ai_tips).ai_details.siddha
+    const FoodState=useSelector((state)=>state.ai_tips).ai_details.food
+
+
+    console.log(AllopathicState)
+
+
+
     const dispatch = useDispatch()
     const save = () => {
         dispatch(setpatientHisory([...HistoryState, patientState]))
     }
-    useEffect(() => {
-        axios.get(`http://agaram.academy/api/action.php?request=ai_health_getDetailsForEnquiry&{id}`).then((res) => {
-            console.log(res)
-
-        })
-    })
+    
     return (<>
 
         <Header />
@@ -53,10 +57,9 @@ export const Userview = () => {
                                         <div className="card-body">
                                             <h3 className="card-category text-info">Foods Taken</h3>
                                             <h3 className="card-title">
-                                                <a href="javascript:;">SoundCloud says it’s going to survive, but how?</a>
-                                            </h3>
-                                            <p className="card-description">
-                                                No matter what happens — funding versus acquisition versus who knows what — Ljung says SoundCloud is not going away “anytime in the foreseeable future.” I hope that’s true, but I can’t help but feel a bit skeptical. — and… <a href="javascript:;"> Read More </a>
+                                           </h3>
+                                            <p className="card-description h5">
+                                                {FoodState}
                                             </p>
 
                                         </div>
@@ -71,10 +74,9 @@ export const Userview = () => {
                                                 Allopathic Medicine
                                             </h3>
                                             <h3 className="card-title">
-                                                <a href="javascript:;">Uber acqui-hires social app studio Swipe Labs</a>
-                                            </h3>
-                                            <p className="card-description">
-                                                These issues might be making it a bit harder for Uber to hire right now in the competitive Silicon Valley job market. Acqui-hiring companies like it’s doing here with Swipe Labs lets it roll up a bunch of good talent — and… <a href="javascript:;"> Read More </a>
+                                         </h3>
+                                            <p className="card-description h5">
+                                                {AllopathicState}                        
                                             </p>
 
                                         </div>
@@ -103,10 +105,10 @@ export const Userview = () => {
                                                 Siddha Medicine
                                             </h3>
                                             <h3 className="card-title">
-                                                <a href="javascript:;">HBO and Netflix lead this year’s nominations</a>
+                                                
                                             </h3>
-                                            <p className="card-description">
-                                                Streaming services once again top the list of this year’s Emmy nominations – another indicator of the shift in how today’s consumers are watching TV. HBO, which has been available. <a href="javascript:;"> Read More </a>
+                                            <p className="card-description h5">
+                                                {SiddhaState}
                                             </p>
 
                                         </div>

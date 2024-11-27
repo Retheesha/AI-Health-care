@@ -37,6 +37,14 @@ export const Slot_List = () => {
             get_doctor_booked_slots(doctor_booked_slot_all.data.data)
             setClinicDetails(JSON.parse(doctor_booked_slot_all.data.data.clinic_details))
         })
+        .catch((error) => {     
+            if (error.response && error.response.status === 401 || error.response.status === 422) {
+              // return <Navigate to="/user/login"/>
+              window.location.href = '/doctor/login'; 
+            } else {
+              console.error('Error fetching doctor data:', error);
+            }
+          }); 
     }, []
     )
     console.log(doctor_booked_all_slots)

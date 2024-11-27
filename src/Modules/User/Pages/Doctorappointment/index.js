@@ -29,24 +29,50 @@ export const Doctorapp = () => {
     const headers={'Authorization':`Bearer ${user_token}`}
 
     const display = () => {
-        if(doctorlist==""){
-        axios.get("https://retheesha.pythonanywhere.com/getlogindoctordata",{headers}).then((res) => {
-            dispatch(setDoctorList((res.data.data)))
-            // console.log()
-            // dispatch(setSpecialist(res.data.data.map((e)=>JSON.parse(e.specialist))))
-            setSearch(res.data.data)
-        })
+        if (!doctorlist || doctorlist.length === 0) {
+          axios.get("https://retheesha.pythonanywhere.com/getlogindoctordata", {headers} )
+            .then((res) => {
+              if (res.data && res.data.data) {
+                dispatch(setDoctorList(res.data.data)); 
+                setSearch(res.data.data);
+              }
+            })
+            .catch((error) => {
+              
+              if (error.response && error.response.status === 401 || error.response.status === 422) {
+                // return <Navigate to="/user/login"/>
+                window.location.href = '/user/login'; 
+              } else {
+                console.error('Error fetching doctor data:', error);
+              }
+            });
         }
-        // else{
+      };
+    
+      useEffect(() => {
+        display();
+      }, [doctorlist]); 
+    
 
-        // }
+    // const display = () => {
+    //     if(doctorlist==""){
+    //     axios.get("https://retheesha.pythonanywhere.com/getlogindoctordata",{headers}).then((res) => {
+    //         dispatch(setDoctorList((res.data.data)))
+    //         // console.log()
+    //         // dispatch(setSpecialist(res.data.data.map((e)=>JSON.parse(e.specialist))))
+    //         setSearch(res.data.data)
+    //     })
+    //     }
+    //     // else{
 
-        // console.log(res.data.data)
+    //     // }
 
-    }
-    useEffect(() => {
-        display()
-    }, [])
+    //     // console.log(res.data.data)
+
+    // }
+    // useEffect(() => {
+    //     display()
+    // }, [])
     // const Filter = (event) => {
     //     setSearch(doctorlist.filter((e) => (e.city.toLowerCase().includes(event.city)) && (e.name.toLowerCase().includes(event.specialist))))
     // }

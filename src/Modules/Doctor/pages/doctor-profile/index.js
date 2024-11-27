@@ -21,6 +21,15 @@ export const Doctor_profile = () => {
             getDoctorData(doctorDetail.data.data)
             
         })
+        .catch((error) => {
+              
+            if (error.response && error.response.status === 401 || error.response.status === 422) {
+              // return <Navigate to="/user/login"/>
+              window.location.href = '/doctor/login'; 
+            } else {
+              console.error('Error fetching doctor data:', error);
+            }
+          }); 
     }, [])
 
 

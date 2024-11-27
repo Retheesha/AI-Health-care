@@ -18,7 +18,6 @@ export const Doctor_Home = () => {
     const get_patients_slots_state = useSelector((state) => state.patient_booking_state).patientBooking
     // const enquiry_state=useSelector((state) => state.patient_booking_state).patientBooking.enquiry_details
     console.log(get_patients_slots_state)
-    // get diseases from api parse diseases
     const [diseases, setDiseases] = useState([]);
     console.log(diseases)
 
@@ -37,10 +36,17 @@ export const Doctor_Home = () => {
             const patientData = response.data.data;
             set_dispatch(get_patient_data(patientData))
             
-            // const diseasesData = JSON.parse(dieseasearr);
-           
-            
-        })  
+            // const diseasesData = JSON.parse(dieseasearr);        
+        }) 
+        .catch((error) => {
+              
+            if (error.response && error.response.status === 401 || error.response.status === 422) {
+              // return <Navigate to="/user/login"/>
+              window.location.href = '/doctor/login'; 
+            } else {
+              console.error('Error fetching doctor data:', error);
+            }
+          }); 
     }, [])
      const today = moment().startOf('day'); // Start of today's date (00:00:00)
 

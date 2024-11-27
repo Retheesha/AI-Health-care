@@ -14,6 +14,7 @@ import patientHistorySlice  from '../Modules/User/slices/HistorySlice'
 
 import DoctorDetailsSlice  from '../Modules/User/slices/bookingSlice'
 import Doctorlistslice from '../Modules/User/slices/Doctorlistslice'
+import AitipsSlice from '../Modules/User/slices/AItipsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -30,7 +31,8 @@ export const store = configureStore({
     userlogin:Userloginslice,
     userhistory:patientHistorySlice,
     user_doctor_slot:DoctorDetailsSlice,
-    DoctorList:Doctorlistslice
+    DoctorList:Doctorlistslice,
+    ai_tips:AitipsSlice
 
    
 
