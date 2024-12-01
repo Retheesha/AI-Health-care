@@ -6618,7 +6618,9 @@ textarea.form-control {
 .nav .nav-item .nav-link:focus {
   background-color: transparent;
 }
-
+.navheader{
+  padding: 10px ! important;
+}
 .navbar {
   border: 0;
   font-size: 14px;

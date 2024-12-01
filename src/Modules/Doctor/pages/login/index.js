@@ -8,7 +8,7 @@ import { get_login_data } from "../../slices/Login_Slice"
 export const Doctor_Login = () => {
 
     const doctorLoginSubmit = useSelector((state)=>state.doctor_login_state).doctorLogin
-    console.log(doctorLoginSubmit)
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
     
@@ -18,12 +18,14 @@ export const Doctor_Login = () => {
         formData.append("email",doctorLoginSubmit.email)
         formData.append("password",doctorLoginSubmit.password)
 
-            axios.post("https://sivaharish.pythonanywhere.com/doctorlogin",formData).then((log)=>{
+
+            // axios.post("http://agaram.academy/api/action.php?request=ai_health_doctor_login",formData).then((log)=>{
+            axios.post("https://retheesha.pythonanywhere.com/doctorlogin",formData).then((log)=>{   
+
                 let status = log.data.status
 
                 if (status == "success"){
                     localStorage.setItem("isLogged", "true")
-                    alert("Login Successfully")
                     navigate("/doctor/home")
                     dispatch(get_login_data(log.data))
                 }else{
@@ -53,6 +55,10 @@ export const Doctor_Login = () => {
                                         </form>
                                         <div className="forgot">
                                             <Link href="#paper-kit" className="btn btn-link btn-danger">Forgot password?</Link>
+                                        </div>
+                                        <h6 className="text-center">(or)</h6>
+                                        <div>
+                                            <p className="text-center"><Link to="/doctor/register">Register</Link></p>
                                         </div>
                                     </div>
                                 </div>

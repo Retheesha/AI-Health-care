@@ -23,7 +23,9 @@ export const Adminhomepage = () => {
     // ------ doctor details ------
 
     const getdetails = () => {
+
         axios.get("https://sivaharish.pythonanywhere.com/getdoctorsdata").then((e) => {
+
             setdoctor(e.data)
             setsearch(e.data)
         })
@@ -84,7 +86,9 @@ export const Adminhomepage = () => {
 
     const deletedoctor = (eachh) => {
 
+
         axios.delete(`https://sivaharish.pythonanywhere.com/delete/${eachh}`).then((d) => {
+
             getdetails()
 
         }
@@ -211,6 +215,7 @@ export const Adminhomepage = () => {
                                                     <h6>{eachh.city}</h6>
                                                 </td>
                                                 <td className=" text-center"><b>{eachh.status}</b>
+
                                                     {eachh.status == "approved" ?
                                                         <i className="fa fa-check fa-2x" aria-hidden="true"></i>
                                                         : <div className="uil-reload-css reload-small ml-3"  >

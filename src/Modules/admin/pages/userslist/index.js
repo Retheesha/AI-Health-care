@@ -20,7 +20,9 @@ export const Adminusers = () => {
 
 
     const getusers = () => {
+
         axios.get("https://sivaharish.pythonanywhere.com/userslist").then((e) => {
+
             setuser(e.data)
         })
 

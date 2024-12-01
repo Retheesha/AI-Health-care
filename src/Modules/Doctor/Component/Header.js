@@ -45,6 +45,8 @@ export const Header = () => {
                                     <div className="dropdown-menu dropdown-menu-right dropdown-danger" aria-labelledby="navbarDropdownMenuLink1">
                                         <Link className="dropdown-item" to="/doctor/slot"><i className="nc-icon nc-bank"></i>Slot Entry</Link>
                                         <Link className="dropdown-item" to="/doctor/slot_list"><i className="nc-icon nc-basket"></i>Slot List</Link>
+                                        <Link className="dropdown-item" to="/doctor/patients_list"><i className="nc-icon nc-basket"></i>patients List</Link>
+
                                     </div>
                                 </li>
                                 <li className="dropdown nav-item">

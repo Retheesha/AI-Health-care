@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState={
-   patienthistory:[]
+   patienthistory:[],
+   paymentHistory:[]
 }        
 
 export const patientHistorySlice=createSlice({
@@ -10,8 +11,10 @@ export const patientHistorySlice=createSlice({
         setpatientHisory:(state,action)=>{
             state.patienthistory=action.payload
         },
-        setpaymentHistory:(state,action)=>{ 
-            state.paymentHistory=action.payload 
+
+        setpaymentHistory:(state,action)=>{
+            state.paymentHistory=action.payload
+
         },
         
     },

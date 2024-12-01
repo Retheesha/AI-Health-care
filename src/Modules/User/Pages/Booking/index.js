@@ -9,7 +9,7 @@ import { setDoctorSlotDetails } from "../../slices/bookingSlice"
 import { setBooking_slots } from "../../slices/bookingSlice"
 import { setpaymentHistory } from "../../slices/HistorySlice"
 export const UserBooking = () => {
-    //generating day using moment 
+
     const BookingState = useSelector((state) => state.patientdetails).bookingDetails
     const DoctorSlotDetails = useSelector((state) => state.user_doctor_slot).dotor_slot_details
     const booked_slots = useSelector((state) => state.user_doctor_slot).booking_slots
@@ -32,17 +32,20 @@ export const UserBooking = () => {
         const max = moment(tomorrow).add(6, 'days')
         setmaxdate(max.format('YYYY-MM-DD'))
 
-    })
-    //getting url params 
+    }
+    //getting url params
     const searchParams = new URLSearchParams(window.location.search)
     const param1 = searchParams.get('doctorid')
     const param2 = searchParams.get('enquiry_id')
-    // getting doctor slot details 
+    // getting doctor slot details
     useEffect(() => {
-        // axios.get(`http://agaram.academy/api/action.php?request=ai_health_get_slot_booking&doctor_id=${param1}`).then((res) => { 
-        axios.get(`https://sivaharish.pythonanywhere.com/getuniquedoctorslot/${param1}`).then((res) => {
+        if(DoctorSlotDetails==""){
+            // axios.get(`http://agaram.academy/api/action.php?request=ai_health_get_slot_booking&doctor_id=${param1}`).then((res) => {
+            axios.get(`https://retheesha.pythonanywhere.com/getuniquedoctorslot/${param1}`).then((res) => {
             dispatch(setDoctorSlotDetails(JSON.parse(res.data.data.clinic_details)))
         })
+        }
+
     }, [])
     let doctor = DoctorSlotDetails.filter((e) => {
         return selectedDay == e.clinic_day
@@ -57,17 +60,19 @@ export const UserBooking = () => {
     console.log(newDoctorSlotDetails)
     const paynow = () => {
         setnewDoctorSlotDetails(DoctorSlotDetails.filter((e) => { return e.clinic_day != selectedDay && e.clinic_timing != booked_slots.booking_time }))
-        // console.log(newDoctorSlotDetails) 
+
         const formdata = new FormData();
         formdata.append("request", "ai_health_create_doctor_appointment")
         formdata.append("booking_date", BookingState.booking_date)
         formdata.append("booking_time", BookingState.booking_time)
         formdata.append("doctor_id", param1)
         formdata.append("enquiry_id", param2)
-        axios.post(`https://sivaharish.pythonanywhere.com/createdoctorapp`, formdata).then((res) => {
-            // console.log(res)  
+
+        axios.post(`https://retheesha.pythonanywhere.com/createdoctorapp`, formdata).then((res) => {
+            // console.log(res) 
             dispatch(setBooking_slots(res.data.data))
-            // dispatch(setpaymentHistory([...paymentHistoryState, res.data.data]))
+            dispatch(setpaymentHistory([...paymentHistoryState, res.data.data]))
+
         })
     }
 
@@ -80,6 +85,7 @@ export const UserBooking = () => {
                         <h2 className="text-dark"><b>Book Now!</b></h2>
                         <h5 className="description text-dark mt-2">Skip the travel!
                             Take Online Doctor Consultation</h5>
+
                     </div>
 
                 </div>
@@ -99,11 +105,9 @@ export const UserBooking = () => {
                                     <div className="card-body text-left">
                                         <div className="row">
                                             <div className="col-8"><input className="form-control" placeholder="date" type="date" min={mindate} max={maxdate}
-                                                onChange={(e) => {
-                                                    setSelectedDay(moment(e.target.value).format('dddd'));
-                                                    dispatch(setBooking({ ...BookingState, booking_date: e.target.value }))
-                                                }
-                                                } /></div>
+                                            onChange={(e) =>{setSelectedDay(moment(e.target.value).format('dddd'));
+                                                dispatch(setBooking({ ...BookingState, booking_date: e.target.value }))}
+                                            }/></div>
                                             <div className="text-success col-4 mt-2">{selectedDay}</div>
                                             <div>{DoctorSlotDetails.consulting_fee}</div>
                                         </div>
@@ -135,68 +139,24 @@ export const UserBooking = () => {
 
                 </div>
             </div>
-
             <div className="modal fade" id="smallNoticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-sm modal-notice">
-                    <div className="modal-content">
-                        <div className="modal-header no-border-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div className="modal-body text-center">
-                            <p><i className="fa fa-thumbs-up fa-2x text-success" aria-hidden="true"></i><strong className="mx-2">Booked Successfully</strong></p>
-
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-link" data-dismiss="modal" aria-hidden="true">Okay</button>
-                        </div>
+            <div className="modal-dialog modal-sm modal-notice">
+                <div className="modal-content">
+                    <div className="modal-header no-border-header">
+                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div className="modal-body text-center">
+                        <p><i className="fa fa-thumbs-up fa-2x text-success" aria-hidden="true"></i><strong className="mx-2">Booked Successfully</strong></p>
+                        
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-link" data-dismiss="modal" aria-hidden="true">Okay</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        {/* <div className="container mt-5"> 
-            <div className="container tim-container mt-5"> 
-                <div className="row "> 
-                    <div className="col-md-4 col-sm-6"> 
-                    </div> 
-                </div> 
-                <div className="card w-50 mt-5 mx-auto" data-color="purple" data-background="color"> 
-                    <div className="card-body text-center"> 
-                        <div className="row"> 
-                            <div className="col-md-6"> 
-                                <div className="form-group"> 
-                                    <div className="form-group"> 
-                                        <div className="form-control">{selectedDay}</div> 
-                                    </div> 
-                                </div> 
-                            </div> 
-                            <div className="col-md-6"> 
-                                <input className="form-control" placeholder="date" type="date" min={mindate} max={maxdate} 
-                                    onChange={(e) => setSelectedDay(moment(e.target.value).format('dddd'))} onClick={(e) => dispatch(setBooking({ ...BookingState, booking_date: e.target.value }))} /> 
-                            </div> 
-                        </div> 
-                        <div> 
-                            <div className="form-control border-input">Time slot</div> 
-                            <div className="row">{isClicked ? doctor.map((e) => 
-                                <button className="col-5 form-control btn-success my-4 mx-3" value={e.clinic_timing} onClick={(e) => { 
-                                    dispatch(setBooking({ ...BookingState, booking_time: e.target.value })) 
-                                }}>{e.clinic_timing}</button>) 
-                                : newSlots.map((e) => 
-                                    <button className="col-5 form-control btn-success my-4 mx-3" value={e.clinic_timing} onClick={(e) => { 
-                                        dispatch(setBooking({ ...BookingState, booking_time: e.target.value })) 
-                                    }}>{e.clinic_timing}</button>) 
-                            } */}
-
-        {/*  
-                                <button className="col-5 form-control btn btn-success my-4 mx-3" value="5pm-7pm" onClick={(e) => dispatch(setBooking({ ...BookingState, slot: e.target.value }))}>5pm-7pm</button> */}
-        {/* </div> 
-                            <div> 
-                                <div><button className="btn btn-danger" onClick={() => { paynow(); setisClicked(false) }}>Pay now</button></div> 
-                            </div> 
-                        </div> 
-                    </div> 
-                </div> 
-            </div> 
+        </div>
+        
         </div> */}
     </>)
 

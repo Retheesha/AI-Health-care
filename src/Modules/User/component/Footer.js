@@ -1,23 +1,25 @@
 export const Footer=()=>{
     return(<>
-         <footer className="footer footer-black  footer-white ">
-                <div className="container">
-                    <div className="row">
-                        <nav className="footer-nav">
-                            <ul>
-                                <li><a href="./user_login.html" target="_blank">U-Login</a></li>
-                                <li><a href="./user_register.html" target="_blank">U-Register</a></li>
-                                <li><a href="./users_home.html">U-Home</a></li>
-                                <li><a href="./user_history.html">U-History</a></li>
-                                <li><a href="./patient_view.html">P-View</a></li>
-                                <li><a href="./doctor_login.html" target="_blank">D-Login</a></li>
-                                <li><a href="./doctor_register.html" target="_blank">D-Register</a></li>
-                                <li><a href="./doctor_patient_booing.html">Patient_Booked</a></li>
-                                <li><a href="./doctor_payment_history.html">D-Payment</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </footer>
+        <footer className="footer footer-black  footer-white ">
+        <div className="container">
+          <div className="row">
+            <nav className="footer-nav">
+              <ul>
+                <li><a href="https://www.creative-tim.com" target="_blank">About us</a></li>
+                <li><a href="http://blog.creative-tim.com/" target="_blank">Contact us</a></li>
+                <li><a href="https://www.creative-tim.com/license" target="_blank">Privacy Policy</a></li>
+              </ul>
+            </nav>
+            <div className="credits ml-auto">
+              <span className="copyright">
+              Copyright © 2024 AI Health Care. All rights reserved.
+                {/* © <script>
+                  document.write(new Date().getFullYear())
+                </script>, made with <i className="fa fa-heart heart"></i> by AI Health Carex */}
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </>)
 }

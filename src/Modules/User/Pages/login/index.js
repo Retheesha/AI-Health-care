@@ -9,21 +9,30 @@ export const Userlogin = () => {
   const userLoginvalue = useSelector((state) => state.userlogin).logindetails
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  let formdata = new FormData();
-  formdata.append("request", userLoginvalue.request)
-  formdata.append("email", userLoginvalue.email)
-  formdata.append("password", userLoginvalue.password)
+ 
   const login = () => {
-    axios.post("https://sivaharish.pythonanywhere.com/userlogin", formdata).then((res) => {
-      console.log(res)
-      if (res.data.status == "success") {
-        dispatch(setloginUser(res.data))
-        navigate("/user/home")
-      }
-      else {
-        alert("failed")
-      }
-    })
+
+    let formdata = new FormData();
+    formdata.append("request", userLoginvalue.request)
+    formdata.append("email", userLoginvalue.email)
+    formdata.append("password", userLoginvalue.password)
+    if((userLoginvalue.email=="" || userLoginvalue.password=="")){
+      alert("Please fill out the required fields")
+    }
+    else{
+      // axios.post(`http://agaram.academy/api/action.php?request=${userLoginvalue.request}`, formdata).then((res) => {
+        axios.post(`https://retheesha.pythonanywhere.com/userlogin`, formdata).then((res) => {
+        console.log(res)
+        if (res.data.status == "success") {
+          dispatch(setloginUser(res.data.data))
+          navigate("/user/home")
+        }
+        else {
+          alert("Unable to log in. Please verify your credentials and try again.")
+        }
+      })
+    }
+    
   }
   useEffect(() => {
 
@@ -32,10 +41,12 @@ export const Userlogin = () => {
     <div className="login-page full-screen sidebar-collapse">
       <nav className="navbar navbar-expand-lg bg-white fixed-top nav-down navbar-transparent" color-on-scroll="500">
         <div className="container">
+        
           <div className="navbar-translate">
-            <a className="navbar-brand" href="https://demos.creative-tim.com/paper-kit-2-pro/index.html" rel="tooltip" title="Paper Kit 2 PRO" data-placement="bottom" target="_blank">
+          <img src="../../assets/img/user/AIH_Logo_Red_CR.png" width={"45%"}/>
+            {/* <a className="navbar-brand" href="https://demos.creative-tim.com/paper-kit-2-pro/index.html" rel="tooltip" title="Paper Kit 2 PRO" data-placement="bottom" target="_blank">
               AI-Health-Care
-            </a>
+            </a> */}
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-bar bar1"></span>
               <span className="navbar-toggler-bar bar2"></span>
@@ -55,12 +66,12 @@ export const Userlogin = () => {
         </div>
       </nav>
       <div className="wrapper">
-        <div className="page-header" style={{ backgroundImage: "url('../assets/img/sections/pexels-negativespace-48604.jpg')" }}>
+        <div className="page-header" style={{ backgroundImage: "url('../assets/img/user/medical-stethoscope-green.jpg')" }}>
           <div className="filter"></div>
           <div className="container">
             <div className="row">
               <div className="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
-                <div className="card card-register " style={{backgroundColor:"lightskyblue"}}>
+                <div className="card card-register " style={{backgroundColor:"#86d9ab"}}>
                   <h3 className="card-title">Welcome</h3>
                   <div className="register-form">
                     <label>Email</label>

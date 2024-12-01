@@ -1,0 +1,6 @@
+.lable-color label{
+    color: blue;
+}
+.lable-color label,h5{
+    display: inline-block;
+}

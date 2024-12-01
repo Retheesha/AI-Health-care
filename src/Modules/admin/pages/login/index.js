@@ -33,10 +33,12 @@ export const Adminlogin = () => {
             axios.post("https://sivaharish.pythonanywhere.com/adminlogin",formData).then((log)=>{
                 // let status = log.data.status
 
+
                 if (log.data.status=="success"){
                     alert("Login successfully")
                     dispatch(login(log.data.data))
                     navigate("/admin/homepage")
+
 
                 }
 
