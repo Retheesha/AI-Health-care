@@ -58,7 +58,7 @@ export const Userview = () => {
                                             <h3 className="card-category text-info">Foods Taken</h3>
                                             <h3 className="card-title">
                                            </h3>
-                                            <p className="card-description h5">
+                                            <p className="fw-bold h5 ">
                                                 {FoodState}
                                             </p>
 
@@ -75,7 +75,7 @@ export const Userview = () => {
                                             </h3>
                                             <h3 className="card-title">
                                          </h3>
-                                            <p className="card-description h5">
+                                            <p className="fw-bold h5">
                                                 {AllopathicState}                        
                                             </p>
 
@@ -107,7 +107,7 @@ export const Userview = () => {
                                             <h3 className="card-title">
                                                 
                                             </h3>
-                                            <p className="card-description h5">
+                                            <p className="fw-bold h5">
                                                 {SiddhaState}
                                             </p>
 

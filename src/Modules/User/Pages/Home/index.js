@@ -28,7 +28,8 @@ export const Userhome = () => {
     const calculateAge = (date) => {
         return moment().diff(moment(date), 'years')
     };
-    const question = `list me the solution for given diseases/problems ${diseasesarr} and considering the following details:
+    const question = `list me the solution for given diseases/problems ${diseasesarr}
+     and considering the following details:
 
                             Days of infection:${patientState.duration}
                             Age:${patientState.age}
@@ -58,22 +59,21 @@ export const Userhome = () => {
             console.log(response['data']['candidates'][0]['content']['parts'][0]['text'])
             const text= response['data']['candidates'][0]['content']['parts'][0]['text']
            
-           
 
             let startAllopathic = text.indexOf("ALLOPATHIC")+"ALLOPATHIC".length
             let endAllopathic = text.indexOf("SIDDHA");  
             let allopathictext = text.substring(startAllopathic, endAllopathic);
             console.log(allopathictext)
-            dispatch(setAllopathicdetails(allopathictext))
+            dispatch(setAllopathicdetails(allopathictext.replace(/\*+/g, "")))
     
             let startSiddha = text.indexOf("SIDDHA")+"SIDDHA".length   
             let endSiddha = text.indexOf("FOOD");  
             let Siddhatext = text.substring(startSiddha, endSiddha);
-            dispatch(setSiddhadetails(Siddhatext))
+            dispatch(setSiddhadetails(Siddhatext.replace(/\*+/g, "")))
     
             let startFood = text.indexOf("FOOD")+"FOOD".length  
             let Foodtext = text.substring(startFood);
-            dispatch(setFooddetails(Foodtext))
+            dispatch(setFooddetails(Foodtext.replace(/\*+/g, "")))
 
             
         })
